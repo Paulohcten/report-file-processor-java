@@ -20,8 +20,8 @@ public class Reader {
     private static List<Item> saleItem2 = new ArrayList<>();
     private static List<Item> saleItem3 = new ArrayList<>();
 
-    public static void readFile(String path){
-        try(BufferedReader bufferedReader = new BufferedReader(new FileReader(path))) {
+    public static void readFile(String path) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path))) {
             String line = bufferedReader.readLine();
 
             while (line != null) {
@@ -36,6 +36,7 @@ public class Reader {
                         break;
 
                     case "003":
+                        saleData.add(new Sale(fields[1], fields[3]));
                         fields[2] = fields[2].substring(1, fields[2].length() - 1);
                         String[] parts = fields[2].split(",");
                         String[] data1 = parts[0].split("-");
@@ -46,13 +47,18 @@ public class Reader {
                         saleItem3.add(new Item(data3[0], data3[1], data3[2]));
                         break;
                     default:
-                        throw new IllegalStateException("Unexpected value: " + fields[0]+ "is not a valid code.");
+                        throw new IllegalStateException("Unexpected value: " + fields[0] + "is not a valid code.");
                 }
                 line = bufferedReader.readLine();
             }
+            // Test
             System.out.println("Sellers: ");
             for (Seller data : sellerData) {
                 System.out.println(data.getName() + "/" + data.getCPF() + "/" + data.getSalary());
+            }
+            System.out.println("Sale: ");
+            for (Sale data : saleData) {
+                System.out.println(data.getSaleId() + "/" + data.getSellerName());
             }
             System.out.println();
             System.out.println("Clients: ");
@@ -70,21 +76,23 @@ public class Reader {
             for (Item data : saleItem3) {
                 System.out.println(data.getId() + "/" + data.getQuantity() + "/" + data.getPrice() + "\n");
             }
+            //End Test
         } catch (IOException e) {
-           System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
         }
     }
-    public static int countClients(){
-        int cont=0;
-        for (int i=0;i<clientData.size();i++) {
+
+    public static int countClients() {
+        int cont = 0;
+        for (int i = 0; i < clientData.size(); i++) {
             cont++;
         }
         return cont;
     }
 
-    public static int countSellers(){
-        int cont=0;
-        for (int i=0;i<sellerData.size();i++) {
+    public static int countSellers() {
+        int cont = 0;
+        for (int i = 0; i < sellerData.size(); i++) {
             cont++;
         }
         return cont;
@@ -101,6 +109,7 @@ public class Reader {
         }
         return listItems1;
     }
+
     public static List<Double> item2TotalValue() {
         double item2TotalPrice;
         List<Double> listItems2 = new ArrayList<>();
@@ -112,6 +121,7 @@ public class Reader {
         }
         return listItems2;
     }
+
     public static List<Double> item3TotalValue() {
         double item3TotalPrice;
         List<Double> listItems3 = new ArrayList<>();
@@ -124,14 +134,28 @@ public class Reader {
         return listItems3;
     }
 
-    public static List<Double> SaleTotalValue(){
+    public static List<Double> SaleTotalValue() {
         List<Double> listItems1 = item1TotalValue();
         List<Double> listItems2 = item2TotalValue();
         List<Double> listItems3 = item3TotalValue();
         List<Double> totalList = new ArrayList<>();
-        for (int i = 0; i <listItems1.size(); i++) {
+        for (int i = 0; i < listItems1.size(); i++) {
             totalList.add(listItems1.get(i) + listItems2.get(i) + listItems3.get(i));
         }
         return totalList;
     }
+
+    public static String bestSaleId() {
+        List<Double> allSales = SaleTotalValue();
+        double bestPrice = 0;
+        int bestPricePosition = 0;
+        for (int i = 0; i < allSales.size(); i++) {
+            if (allSales.get(i) > bestPrice) {
+                bestPrice = allSales.get(i);
+                bestPricePosition = i;
+            }
+        }
+        return saleData.get(bestPricePosition).getSaleId();
+    }
+
 }

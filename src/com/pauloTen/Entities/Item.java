@@ -1,7 +1,7 @@
 package com.pauloTen.Entities;
 import java.io.Serializable;
 
-public class Item implements Serializable {
+public class Item extends Sale implements Serializable {
 
     private String id;
     private String quantity;
@@ -14,10 +14,6 @@ public class Item implements Serializable {
         this.id = id;
         this.quantity = quantity;
         this.price = price;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public void setId(String id) {

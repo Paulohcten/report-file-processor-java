@@ -7,15 +7,21 @@ public class Sale implements Serializable {
 
     private static final Integer id =3;
     private String saleId;
-    private List<Item> items = new ArrayList<>();
     private String sellerName;
+    private Double totalValue;
+
+    private List<Item> items = new ArrayList<>();
 
     public Sale(){
     }
 
-    public Sale(String saleId, List<Item> items, String sellerName) {
+    public Sale(String sellerName, Double totalValue) {
+        this.sellerName = sellerName;
+        this.totalValue = totalValue;
+    }
+
+    public Sale(String saleId, String sellerName) {
         this.saleId = saleId;
-        this.items = items;
         this.sellerName = sellerName;
     }
 

@@ -70,9 +70,23 @@ public class Reader {
             for (Item data : saleItem3) {
                 System.out.println(data.getId() + "/" + data.getQuantity() + "/" + data.getPrice() + "\n");
             }
+        } catch (IOException e) {
+           System.out.println(e.getMessage());
         }
-        catch (IOException e){
-            System.out.println(e.getMessage());
+    }
+    public static int countClients(){
+        int cont=0;
+        for (int i=0;i<clientData.size();i++) {
+            cont++;
         }
+        return cont;
+    }
+
+    public static int countSellers(){
+        int cont=0;
+        for (int i=0;i<sellerData.size();i++) {
+            cont++;
+        }
+        return cont;
     }
 }

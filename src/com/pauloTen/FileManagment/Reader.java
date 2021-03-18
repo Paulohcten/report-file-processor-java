@@ -89,4 +89,49 @@ public class Reader {
         }
         return cont;
     }
+
+    public static List<Double> item1TotalValue() {
+        double item1TotalPrice;
+        List<Double> listItems1 = new ArrayList<>();
+        for (Item data : saleItem1) {
+            double quantity = Double.parseDouble(data.getQuantity());
+            double price = Double.parseDouble(data.getPrice());
+            item1TotalPrice = quantity * price;
+            listItems1.add(item1TotalPrice);
+        }
+        return listItems1;
+    }
+    public static List<Double> item2TotalValue() {
+        double item2TotalPrice;
+        List<Double> listItems2 = new ArrayList<>();
+        for (Item data : saleItem2) {
+            double quantity = Double.parseDouble(data.getQuantity());
+            double price = Double.parseDouble(data.getPrice());
+            item2TotalPrice = quantity * price;
+            listItems2.add(item2TotalPrice);
+        }
+        return listItems2;
+    }
+    public static List<Double> item3TotalValue() {
+        double item3TotalPrice;
+        List<Double> listItems3 = new ArrayList<>();
+        for (Item data : saleItem3) {
+            double quantity = Double.parseDouble(data.getQuantity());
+            double price = Double.parseDouble(data.getPrice());
+            item3TotalPrice = quantity * price;
+            listItems3.add(item3TotalPrice);
+        }
+        return listItems3;
+    }
+
+    public static List<Double> SaleTotalValue(){
+        List<Double> listItems1 = item1TotalValue();
+        List<Double> listItems2 = item2TotalValue();
+        List<Double> listItems3 = item3TotalValue();
+        List<Double> totalList = new ArrayList<>();
+        for (int i = 0; i <listItems1.size(); i++) {
+            totalList.add(listItems1.get(i) + listItems2.get(i) + listItems3.get(i));
+        }
+        return totalList;
+    }
 }

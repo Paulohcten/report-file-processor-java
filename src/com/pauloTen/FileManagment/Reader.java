@@ -159,20 +159,18 @@ public class Reader {
         return saleData.get(bestPricePosition).getSaleId();
     }
 
-    public static String worstSell(){
-        List<Double> allSales = SaleTotalValue();
-        double worstPrice=allSales.get(0);
-        int worstPricePosition=0;
-        for (int i = 0; i <allSales.size(); i++) {
-            if (allSales.get(i) < worstPrice){
-                worstPrice = allSales.get(i);
-                worstPricePosition = i;
+    public static String worstSeller(){
+        double worstSale=updateSellerSales().get(0).getTotalValue();
+        String worstSeller=updateSellerSales().get(0).getSellerName();
+        for (int i = 1; i <updateSellerSales().size(); i++) {
+            if (updateSellerSales().get(i).getTotalValue() < worstSale){
+                worstSeller=updateSellerSales().get(i).getSellerName();
             }
         }
-        return saleData.get(worstPricePosition).getSaleId();
+        return worstSeller;
     }
 
-    public static List<Sale> worstSeller(){
+    public static List<Sale> updateSellerSales(){
         List<Sale> sellersSales = new ArrayList<>();
         List<Sale> sellersTotalSale = new ArrayList<>();
         List<Double> allSales = SaleTotalValue();
@@ -185,12 +183,12 @@ public class Reader {
         for (int i=1; i<sellersSales.size();i++){
             if(!sellersSales.get(i).getSellerName().equals(sellersTotalSale.get(j).getSellerName())){
                 sellersTotalSale.add(sellersSales.get(i));
+                j++;
             }
             else {
                 sumValues = sellersTotalSale.get(j).getTotalValue()+sellersSales.get(i).getTotalValue();
                 sellersTotalSale.get(j).setTotalValue(sumValues);
             }
-            j++;
         }
         return sellersTotalSale;
     }

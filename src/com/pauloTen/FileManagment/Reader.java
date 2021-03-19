@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Reader {
@@ -21,8 +20,8 @@ public class Reader {
     private static List<Item> saleItem2 = new ArrayList<>();
     private static List<Item> saleItem3 = new ArrayList<>();
 
-    public static void readFile(String path) {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(path))) {
+    public static void readFile(String inPath) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(inPath))) {
             String line = bufferedReader.readLine();
 
             while (line != null) {
@@ -52,32 +51,6 @@ public class Reader {
                 }
                 line = bufferedReader.readLine();
             }
-            // Test
-            System.out.println("Sellers: ");
-            for (Seller data : sellerData) {
-                System.out.println(data.getName() + "/" + data.getCPF() + "/" + data.getSalary());
-            }
-            System.out.println("Sale: ");
-            for (Sale data : saleData) {
-                System.out.println(data.getSaleId() + "/" + data.getSellerName());
-            }
-            System.out.println();
-            System.out.println("Clients: ");
-            for (Client data : clientData) {
-                System.out.println(data.getName() + "/" + data.getCNPJ() + "/" + data.getBusinessArea());
-            }
-            System.out.println();
-            System.out.println(" Items of Sales: ");
-            for (Item data : saleItem1) {
-                System.out.println(data.getId() + "/" + data.getQuantity() + "/" + data.getPrice() + "\n");
-            }
-            for (Item data : saleItem2) {
-                System.out.println(data.getId() + "/" + data.getQuantity() + "/" + data.getPrice() + "\n");
-            }
-            for (Item data : saleItem3) {
-                System.out.println(data.getId() + "/" + data.getQuantity() + "/" + data.getPrice() + "\n");
-            }
-            //End Test
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

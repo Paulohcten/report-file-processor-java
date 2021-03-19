@@ -1,22 +1,30 @@
 package com.pauloTen;
 
-import static com.pauloTen.FileManagment.Reader.*;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import static com.pauloTen.FileManagment.Reader.readFile;
+import static com.pauloTen.FileManagment.Writer.writeFile;
 
 public class Main {
 
-    public static void main(String[] args) {
-        String path = "C:\\Users\\phcte\\data\\in\\example.dat";
-        readFile(path);
+    public static void main(String[] args) throws FileNotFoundException {
+        try {
+            String homePath = System.getenv("HOMEPATH");
+            String mainPath = homePath + "\\data";
+            String pathOutDir = mainPath + "\\out";
+            File file = new File(pathOutDir);
+            boolean bool = file.mkdir();
 
-        //Tests
-        System.out.println("Quantity of clients: "+countClients());
-        System.out.println("Quantity of seller: "+countSellers());
-        System.out.println("item1 total price: "+item1TotalValue());
-        System.out.println("item2 total price: "+item2TotalValue());
-        System.out.println("item3 total price: "+item3TotalValue());
-        System.out.println("Sale prices: "+SaleTotalValue());
-        System.out.println("Best sale id :"+bestSaleId());
-        System.out.println("Sellers total sales values:"+updateSellerSales());
-        System.out.println("Worst seller: "+worstSeller());
+            String inPath = mainPath + "\\in\\example.dat";
+            readFile(inPath);
+
+            String outPath = pathOutDir+"\\exampleOut.done.dat";
+            writeFile(outPath);
+        }
+        catch (IndexOutOfBoundsException e) {
+            throw new IndexOutOfBoundsException(e.getMessage());
+        }
     }
 }

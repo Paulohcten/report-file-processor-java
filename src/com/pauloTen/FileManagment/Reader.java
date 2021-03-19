@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Reader {
@@ -158,4 +159,39 @@ public class Reader {
         return saleData.get(bestPricePosition).getSaleId();
     }
 
+    public static String worstSell(){
+        List<Double> allSales = SaleTotalValue();
+        double worstPrice=allSales.get(0);
+        int worstPricePosition=0;
+        for (int i = 0; i <allSales.size(); i++) {
+            if (allSales.get(i) < worstPrice){
+                worstPrice = allSales.get(i);
+                worstPricePosition = i;
+            }
+        }
+        return saleData.get(worstPricePosition).getSaleId();
+    }
+
+    public static List<Sale> worstSeller(){
+        List<Sale> sellersSales = new ArrayList<>();
+        List<Sale> sellersTotalSale = new ArrayList<>();
+        List<Double> allSales = SaleTotalValue();
+        for(int i=0; i<saleData.size();i++){
+            sellersSales.add(new Sale(saleData.get(i).getSellerName(),allSales.get(i)));
+        }
+        double sumValues;
+        int j=0;
+        sellersTotalSale.add(new Sale(sellersSales.get(0).getSellerName(),sellersSales.get(0).getTotalValue()));
+        for (int i=1; i<sellersSales.size();i++){
+            if(!sellersSales.get(i).getSellerName().equals(sellersTotalSale.get(j).getSellerName())){
+                sellersTotalSale.add(sellersSales.get(i));
+            }
+            else {
+                sumValues = sellersTotalSale.get(j).getTotalValue()+sellersSales.get(i).getTotalValue();
+                sellersTotalSale.get(j).setTotalValue(sumValues);
+            }
+            j++;
+        }
+        return sellersTotalSale;
+    }
 }

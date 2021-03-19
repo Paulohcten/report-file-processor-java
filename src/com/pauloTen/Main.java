@@ -16,5 +16,6 @@ public class Main {
         System.out.println("item3 total price: "+item3TotalValue());
         System.out.println("Sale prices: "+SaleTotalValue());
         System.out.println("Best sale id :"+bestSaleId());
+        System.out.println("Equal Sellers total value:"+worstSeller());
     }
 }

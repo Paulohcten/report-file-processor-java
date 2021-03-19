@@ -44,4 +44,6 @@ public class Seller implements Serializable {
     public void setSalary(String salary) {
         this.salary = salary;
     }
+
+
 }

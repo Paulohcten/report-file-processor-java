@@ -52,4 +52,18 @@ public class Sale implements Serializable {
     public void setSellerName(String sellerName) {
         this.sellerName = sellerName;
     }
+
+    public Double getTotalValue() {
+        return totalValue;
+    }
+
+    public void setTotalValue(Double totalValue) {
+        this.totalValue = totalValue;
+    }
+
+    @Override
+    public String toString() {
+        return  sellerName +
+                " totalValue=" + totalValue;
+    }
 }

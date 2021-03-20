@@ -51,7 +51,8 @@ public class Reader {
                 }
                 line = bufferedReader.readLine();
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -164,5 +165,14 @@ public class Reader {
             }
         }
         return sellersTotalSale;
+    }
+
+    public static void clearLists(){
+        sellerData.clear();
+        clientData.clear();
+        saleData.clear();
+        saleItem1.clear();
+        saleItem2.clear();
+        saleItem3.clear();
     }
 }
